@@ -1,0 +1,14 @@
+model,platform,image_file,crystal_type,energy_above_hull,formation_energy,band_gap,raw_output
+qwen-vl-max-latest,dashscope,pic\test.png,Cubic,0.0,0.0,3.1,"{
+  ""crystal_type"": ""Cubic"",
+  ""energy_above_hull"": 0.0,
+  ""formation_energy"": 0.0,
+  ""band_gap"": 3.1
+}"
+llama-4-maverick-17b-128e-instruct,dashscope,pic\test.png,Hexagonal,0.0,-0.333,4.5,"{
+  ""crystal_type"": ""Hexagonal"",
+  ""energy_above_hull"": 0.0,
+  ""formation_energy"": -0.333,
+  ""band_gap"": 4.5
+}"
+gpt-4o,openai,pic\test.png,,,,,抱歉，我无法从图像中提供具体的晶体结构分析或计算物理性质数据。建议使用材料科学软件如VESTA或者DFT计算工具进行进一步分析。
