@@ -1,0 +1,20 @@
+easygraphics==2.0.1.2
+imageio==2.27.0
+matplotlib==3.5.2
+numpy==1.22.4
+opencv_python==4.8.0.76
+pandas==2.2.3
+Pillow==11.1.0
+pycocotools==2.0.7
+pytorch_lightning==1.8.4
+PyYAML==6.0.2
+scikit_image==0.19.3
+scikit_learn==1.0.2
+scipy==1.10.1
+torch==2.4.1
+torchsummary==1.5.1
+torchvision==0.19.1
+tqdm==4.61.2
+
+pip3 install torch==2.4.1 torchvision torchaudio -f https://mirrors.aliyun.com/pytorch-wheels/cu121/
+python>=3.9
