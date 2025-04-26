@@ -274,7 +274,7 @@ def main():
     parser.add_argument('--cif_file', type=str,
                         default="/home/aiprogram/project/yaotian/phase_structure_reconstruction/data_generation/modified_supercell_orthonalize_selected_cifs/orthogonal_0_supercell_12x12x1.cif",
                         help='Path to the CIF file (单文件模式)')
-    parser.add_argument('--cif_folder', type=str, default="/home/aiprogram/project/yaotian/phase_structure_reconstruction/data_generation/selected_samples",
+    parser.add_argument('--cif_folder', type=str, default="/home/aiprogram/project/yaotian/phase_structure_reconstruction/data_generation/train_selected_samples",
                         help='Path to a folder containing CIF files for batch simulation')
     parser.add_argument('--orientation', type=str, default='0,0,1',
                         help='Surface orientation as comma-separated values (e.g., "1,0,0")')
@@ -292,7 +292,7 @@ def main():
                         help='Kernel size for Gaussian filter')
     # 输出文件夹参数，用于存放所有生成的文件
     parser.add_argument('--output_folder', type=str,
-                        default="/home/aiprogram/project/yaotian/phase_structure_reconstruction/data_generation/output_simulate_stem",
+                        default="/home/aiprogram/project/yaotian/phase_structure_reconstruction/data_generation/output_simulate_stem_train",
                         help='Folder to save all output files')
     # 新增多GPU相关的参数
     parser.add_argument('--gpu_ids', type=str, default="4,5,6,7",

@@ -6,6 +6,7 @@ from pathlib import Path
 
 # preprocess_model
 from preprocess_model.image_preprocess_model import DIVAESR
+from preprocess_model.moe import MOEDIVAESR
 from preprocess_model.preprocess_data import DIVAESRDataLoader
 from preprocess_model.preprocess_experiment import Prexpriment
 
@@ -24,6 +25,7 @@ import torch.nn as nn
 
 
 if __name__ == '__main__':
+    gating_weights = '/home/aiprogram/project/yaotian/phase_structure_reconstruction/structure_recongnition/saved_models'
     sr_model_args = args
     with open(args.filename, 'r') as file:
         try:
@@ -38,7 +40,8 @@ if __name__ == '__main__':
     # define tb_logger
     tb_logger = TensorBoardLogger(save_dir=config['logging_params']['save_dir'], name=config['model_params']['name'], )
     # define model
-    preprocess_model = DIVAESR(sr_model_args, vae_model_args)
+    # preprocess_model = DIVAESR(sr_model_args, vae_model_args)
+    preprocess_model = MOEDIVAESR(sr_model_args, vae_model_args, gating_weights)
     # 打印整个模型的结构
     print(preprocess_model)
 

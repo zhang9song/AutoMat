@@ -8,6 +8,7 @@ def loss_function_total(*args, **kwargs) -> dict:
     vae_loss_input = vae_output_noise
     vae_loss = vae_loss_function(*vae_loss_input, M_N=kwargs['M_N'])
     attention_map = create_attention_map(hr_cat_labels)
+    print("attn min/max :", attention_map.min().item(), attention_map.max().item())
     sr_loss = weighted_loss(sr_output, hr_label, attention_map)
     total_loss = vae_loss['loss'] + sr_loss * 0.1
     return {'loss': total_loss, 'VAE_Loss': vae_loss['loss'], 'sr_loss': sr_loss.detach()}
@@ -53,4 +54,4 @@ def weighted_loss(sr_output, hr_label, attention_map):
 
 def create_attention_map(binary_attention_map):
     # create weight attention map
-    return binary_attention_map * 3 + 1
+    return binary_attention_map * 7 + 1
