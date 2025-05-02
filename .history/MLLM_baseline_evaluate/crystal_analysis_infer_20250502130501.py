@@ -3,7 +3,7 @@
 
 #prepare:1.pip install openai>=1.3.0 dashscope zhipuai pandas； pip install tqdm
 #2.export OPENAI_API_KEY=sk-...
-#export DASHSCOPE_API_KEY=sk-84ef7b16946e41baa82ba089e7cef715
+export DASHSCOPE_API_KEY=sk-84ef7b16946e41baa82ba089e7cef715
 #export ZHIPU_API_KEY=zhi-...
 
 import os
@@ -79,7 +79,7 @@ def extract_material_id(image_path: Path) -> Optional[str]:
     match = re.search(pattern, image_path.name)
     if match:
         return match.group(1)
-    #logging.warning("无法从文件名 %s 中提取material_id", image_path.name)
+    logging.warning("无法从文件名 %s 中提取material_id", image_path.name)
     return None
 
 
@@ -249,7 +249,7 @@ def parse_model_output(text: Optional[str]) -> Tuple[Optional[str], ...]:
 # ╔══════════════════════ 主批处理逻辑 ════════════════════════════╗
 def process_single_image(cfg, img, prompt, materials_df=None):
     model, platform, api_key = cfg["name"], cfg["platform"].lower(), cfg["api_key"]
-    api_key = require_api_key(api_key) if not api_key.startswith("${") else api_key[2:-1]
+    api_key = require_api_key(api_key) if not api_key.startswith("${") else require_api_key(api_key[2:-1])
     
     # 获取元素信息并添加到提示中
     enriched_prompt = prompt
@@ -364,7 +364,7 @@ if __name__ == "__main__":
         {
             "name": "qwen2.5-vl-7b-instruct",  # 修改为实际使用的模型
             "platform": "dashscope",
-            "api_key": "${sk-84ef7b16946e41baa82ba089e7cef715}",  # 环境变量名
+            "api_key": "sk-84ef7b16946e41baa82ba089e7cef715",  # 环境变量名
         },
         # {
         #     "name": "gpt-4o",

@@ -1,14 +1,17 @@
-model,platform,image_file,crystal_type,energy_above_hull,formation_energy,band_gap,raw_output
-qwen-vl-max-latest,dashscope,pic\test.png,Cubic,0.0,0.0,3.1,"{
-  ""crystal_type"": ""Cubic"",
-  ""energy_above_hull"": 0.0,
-  ""formation_energy"": 0.0,
-  ""band_gap"": 3.1
-}"
-llama-4-maverick-17b-128e-instruct,dashscope,pic\test.png,Hexagonal,0.0,-0.333,4.5,"{
-  ""crystal_type"": ""Hexagonal"",
-  ""energy_above_hull"": 0.0,
-  ""formation_energy"": -0.333,
-  ""band_gap"": 4.5
-}"
-gpt-4o,openai,pic\test.png,,,,,抱歉，我无法从图像中提供具体的晶体结构分析或计算物理性质数据。建议使用材料科学软件如VESTA或者DFT计算工具进行进一步分析。
+model,platform,image_file,material_id,crystal_type,energy_above_hull,formation_energy,band_gap,error_type,raw_output
+qwen2.5-vl-7b-instruct,dashscope,/Users/a1/Downloads/evaluate_example/img/orthogonal_2dm-75_supercell_12x12x1_dose30000_sampling0.1_iDPC_V3.png,,diamond,0.1,-3.5,5.6,,"```json
+{
+  ""crystal_type"": ""diamond"",
+  ""energy_above_hull"": 0.1,
+  ""formation_energy"": -3.5,
+  ""band_gap"": 5.6
+}
+```"
+qwen2.5-vl-7b-instruct,dashscope,/Users/a1/Downloads/evaluate_example/img/orthogonal_2dm-182_supercell_16x16x1_dose60000_sampling0.1_iDPC_V3.png,,diamond,0.1,-3.5,5.6,,"```json
+{
+  ""crystal_type"": ""diamond"",
+  ""energy_above_hull"": 0.1,
+  ""formation_energy"": -3.5,
+  ""band_gap"": 5.6
+}
+```"

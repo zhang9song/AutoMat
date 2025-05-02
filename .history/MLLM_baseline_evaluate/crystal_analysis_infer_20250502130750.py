@@ -79,7 +79,7 @@ def extract_material_id(image_path: Path) -> Optional[str]:
     match = re.search(pattern, image_path.name)
     if match:
         return match.group(1)
-    #logging.warning("无法从文件名 %s 中提取material_id", image_path.name)
+    logging.warning("无法从文件名 %s 中提取material_id", image_path.name)
     return None
 
 

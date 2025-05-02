@@ -3,7 +3,7 @@
 
 #prepare:1.pip install openai>=1.3.0 dashscope zhipuai pandas； pip install tqdm
 #2.export OPENAI_API_KEY=sk-...
-#export DASHSCOPE_API_KEY=sk-84ef7b16946e41baa82ba089e7cef715
+#export DASHSCOPE_API_KEY=das-...
 #export ZHIPU_API_KEY=zhi-...
 
 import os
@@ -21,20 +21,20 @@ import time
 import pandas as pd
 
 # ─────────────────────────── 第三方 SDK ──────────────────────────── #
-# try:
-#     import openai
-# except ImportError:
-#     openai = None
+try:
+    import openai
+except ImportError:
+    openai = None
 
 try:
     from dashscope import MultiModalConversation
 except ImportError:
     MultiModalConversation = None  # noqa: N816
 
-# try:
-#     from zhipuai import ZhipuAI
-# except ImportError:
-#     ZhipuAI = None
+try:
+    from zhipuai import ZhipuAI
+except ImportError:
+    ZhipuAI = None
 # ------------------------------------------------------------------ #
 
 logging.basicConfig(
@@ -71,43 +71,6 @@ def guess_mime_type(fp: Path) -> str:
 
 def encode_image_to_base64(fp: Path) -> str:
     return base64.b64encode(fp.read_bytes()).decode("utf-8")
-
-
-def extract_material_id(image_path: Path) -> Optional[str]:
-    """从图片文件名中提取material_id（orthogonal_和_supercell之间的字符串）"""
-    pattern = r"orthogonal_(.*?)_supercell_.*\.jpg"
-    match = re.search(pattern, image_path.name)
-    if match:
-        return match.group(1)
-    #logging.warning("无法从文件名 %s 中提取material_id", image_path.name)
-    return None
-
-
-def load_materials_properties(csv_path: str) -> pd.DataFrame:
-    """加载材料属性CSV文件"""
-    try:
-        df = pd.read_csv(csv_path)
-        logging.info("成功加载材料属性数据，共 %d 条记录", len(df))
-        return df
-    except Exception as e:
-        logging.error("加载CSV文件 %s 失败: %s", csv_path, e)
-        return pd.DataFrame()
-
-
-def get_material_elements(materials_df: pd.DataFrame, material_id: str) -> Optional[str]:
-    """从材料数据框中获取指定material_id的elements信息"""
-    if materials_df.empty:
-        return None
-    
-    try:
-        row = materials_df[materials_df['material_id'] == material_id]
-        if not row.empty:
-            return row['elements'].iloc[0]
-        logging.warning("在CSV中未找到material_id: %s", material_id)
-        return None
-    except Exception as e:
-        logging.error("获取elements信息失败: %s", e)
-        return None
 
 
 # ╔══════════════════════════─ API 调用封装 ─═══════════════════════╗
@@ -247,27 +210,17 @@ def parse_model_output(text: Optional[str]) -> Tuple[Optional[str], ...]:
 
 
 # ╔══════════════════════ 主批处理逻辑 ════════════════════════════╗
-def process_single_image(cfg, img, prompt, materials_df=None):
+def process_single_image(cfg, img, prompt):
     model, platform, api_key = cfg["name"], cfg["platform"].lower(), cfg["api_key"]
-    api_key = require_api_key(api_key) if not api_key.startswith("${") else api_key[2:-1]
-    
-    # 获取元素信息并添加到提示中
-    enriched_prompt = prompt
-    if materials_df is not None:
-        material_id = extract_material_id(img)
-        if material_id:
-            elements = get_material_elements(materials_df, material_id)
-            if elements:
-                enriched_prompt = f"晶体元素: {elements}\n\n{prompt}"
-                logging.info("   为 %s 添加了元素信息: %s", img.name, elements)
+    api_key = require_api_key(api_key) if not api_key.startswith("${") else require_api_key(api_key[2:-1])
     
     raw = None
     if platform == "dashscope":
-        raw = call_dashscope(api_key, model, img, enriched_prompt)
+        raw = call_dashscope(api_key, model, img, prompt)
     elif platform == "openai":
-        raw = call_openai(api_key, model, img, enriched_prompt)
+        raw = call_openai(api_key, model, img, prompt)
     elif platform == "zhipuai":
-        raw = call_zhipuai(api_key, model, img, enriched_prompt)
+        raw = call_zhipuai(api_key, model, img, prompt)
     else:
         logging.error("未知平台 %s", platform)
         return None
@@ -277,7 +230,6 @@ def process_single_image(cfg, img, prompt, materials_df=None):
         model=model,
         platform=platform,
         image_file=str(img),
-        material_id=extract_material_id(img),
         crystal_type=ct,
         energy_above_hull=e_hull,
         formation_energy=f_energy,
@@ -291,20 +243,12 @@ def test_models_on_images(
     image_dir: str,
     prompt: str,
     models_cfg: List[Dict[str, str]],
-    materials_csv_path: Optional[str] = None,
     max_workers: int = 4,
 ) -> List[Dict[str, Any]]:
     imgs = get_image_files(image_dir)
     if not imgs:
         logging.warning("目录 %s 中未找到图像", image_dir)
         return []
-
-    # 加载材料属性数据
-    materials_df = None
-    if materials_csv_path:
-        materials_df = load_materials_properties(materials_csv_path)
-        if materials_df.empty:
-            logging.warning("未能加载材料属性数据，将使用原始提示")
 
     results: List[Dict[str, Any]] = []
     start_time = time.time()
@@ -315,7 +259,7 @@ def test_models_on_images(
         logging.info("▶ 测试模型=%s  平台=%s", model, platform)
         
         for img in imgs:
-            tasks.append((cfg, img, prompt, materials_df))
+            tasks.append((cfg, img, prompt))
     
     total_tasks = len(tasks)
     logging.info("共有 %d 个测试任务 (模型数=%d × 图像数=%d)", 
@@ -351,9 +295,7 @@ def save_results_csv(rows: List[Dict[str, Any]], csv_fp: str = "crystal_analysis
 
 # ╔══════════════════════════─ main ─═════════════════════════════╗
 if __name__ == "__main__":
-    IMAGE_DIR = "/Users/a1/Downloads/evaluate_example/img"  # 修改为实际图像目录
-    MATERIALS_CSV = "/Users/a1/Downloads/evaluate_example/materials_properties.csv"  # 材料属性CSV
-    
+    IMAGE_DIR = "pic"  # ⇽ 按需修改
     PROMPT = (
         "你将收到一张晶体结构图像，请分析该结构的晶体类型，并根据图像信息估算下列参数：\n"
         "- crystal_type\n- energy_above_hull (eV/atom)\n- formation_energy (eV/atom)\n- band_gap (eV)\n"
@@ -362,26 +304,24 @@ if __name__ == "__main__":
 
     MODELS = [
         {
-            "name": "qwen2.5-vl-7b-instruct",  # 修改为实际使用的模型
+            "name": "qwen-vl-max-latest",
             "platform": "dashscope",
-            "api_key": "${sk-84ef7b16946e41baa82ba089e7cef715}",  # 环境变量名
+            "api_key": "DASHSCOPE_API_KEY",  # 环境变量名
         },
-        # {
-        #     "name": "gpt-4o",
-        #     "platform": "openai",
-        #     "api_key": "OPENAI_API_KEY",
-        # },
-        # {
-        #     "name": "glm-4v",
-        #     "platform": "zhipuai",
-        #     "api_key": "ZHIPU_API_KEY",
-        # },
+        {
+            "name": "gpt-4o",
+            "platform": "openai",
+            "api_key": "OPENAI_API_KEY",
+        },
+        {
+            "name": "glm-4v",
+            "platform": "zhipuai",
+            "api_key": "ZHIPU_API_KEY",
+        },
     ]
     
     # 设置并行线程数，可以根据需要调整
     MAX_WORKERS = 4
     
-    all_rows = test_models_on_images(IMAGE_DIR, PROMPT, MODELS, 
-                                     materials_csv_path=MATERIALS_CSV,
-                                     max_workers=MAX_WORKERS)
+    all_rows = test_models_on_images(IMAGE_DIR, PROMPT, MODELS, max_workers=MAX_WORKERS)
     save_results_csv(all_rows)
