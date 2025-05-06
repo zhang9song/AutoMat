@@ -1,12 +1,8 @@
 <p align="center">
-  <img src="https://github.com/yyt-2378/AutoMat/blob/main/AutoMat_Logo.png" alt="AutoMat Logo" width="250"/>
+  <img src="https://github.com/yyt-2378/AutoMat/blob/main/AutoMat_Logo.png" alt="AutoMat Logo" width="750"/>
 </p>
 
-<h1 align="center">AutoMat</h1>
-
-<p align="center">
-  Welcome to use AutoMat
-</p>
+<h1 align="center">Welcome to use AutoMat</h1>
 
 ---
 # AutoMat
