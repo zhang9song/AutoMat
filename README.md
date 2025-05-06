@@ -1,3 +1,14 @@
+<p align="center">
+  <img src="https://github.com/yyt-2378/AutoMat/blob/main/AutoMat_Logo.png" alt="AutoMat Logo" width="250"/>
+</p>
+
+<h1 align="center">AutoMat</h1>
+
+<p align="center">
+  Welcome to use AutoMat
+</p>
+
+---
 # AutoMat
 AutoMat focuses on characterization to property analysis and is preparing for NeurIPS 2025.
 
