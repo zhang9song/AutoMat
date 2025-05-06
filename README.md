@@ -1,8 +1,9 @@
-<p align="center">
-  <img src="https://github.com/yyt-2378/AutoMat/blob/main/AutoMat_Logo.png" alt="AutoMat Logo" width="750"/>
-</p>
-
-<h1 align="center">Welcome to use AutoMat</h1>
+<table>
+  <tr>
+    <td><img src="https://github.com/yyt-2378/AutoMat/blob/main/AutoMat_Logo.png" alt="AutoMat Logo" width="150"/></td>
+    <td><h1 style="margin-left: 20px;">Welcome to use AutoMat</h1></td>
+  </tr>
+</table>
 
 ---
 # AutoMat
