@@ -1,9 +1,6 @@
-<table>
-  <tr>
-    <td><img src="https://github.com/yyt-2378/AutoMat/blob/main/AutoMat_Logo.png" alt="AutoMat Logo" width="150"/></td>
-    <td><h1 style="margin-left: 20px;">Welcome to use AutoMat</h1></td>
-  </tr>
-</table>
+<p align="center">
+  <img src="https://github.com/yyt-2378/AutoMat/blob/main/AutoMat_Logo.png" alt="AutoMat Logo" width="250"/>
+</p>
 
 ---
 # AutoMat
