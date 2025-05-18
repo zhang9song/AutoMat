@@ -4,7 +4,7 @@
 
 ---
 # AutoMat
-AutoMat focuses on characterization to property analysis and is preparing for NeurIPS 2025.
+AutoMat focuses on characterization to property analysis.
 
 # Example_output:
 ## **1. 材料类型与结构特征**
