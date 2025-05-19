@@ -158,7 +158,7 @@ class DIVAESRDataset(data.Dataset):
 
     def __getitem__(self, idx):
         lr, hr, filename = self._load_file(idx)
-        cat_filename = os.path.join('/home/aiprogram/project/yaotian/phase_structure_reconstruction/cat_label', filename+'.png')
+        cat_filename = os.path.join('cat_label', filename+'.png')
         if os.path.exists(cat_filename):
             hr_cat_label = imageio.imread(cat_filename, pilmode="L")
         else:
