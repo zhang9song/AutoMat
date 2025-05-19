@@ -25,7 +25,7 @@ import torch.nn as nn
 
 
 if __name__ == '__main__':
-    gating_weights = '/home/aiprogram/project/yaotian/phase_structure_reconstruction/structure_recongnition/saved_models'
+    gating_weights = 'structure_recongnition/saved_models'
     sr_model_args = args
     with open(args.filename, 'r') as file:
         try:
