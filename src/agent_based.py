@@ -1,5 +1,5 @@
 """
-materials_ds_agent.py
+agent_based.py
 
 改进版 Materials-AI-Agent
 ------------------------
@@ -10,14 +10,14 @@ materials_ds_agent.py
 
 用法示例：
   # 一次性执行
-  python materials_ds_agent.py \
+  python agent_based.py \
     --api_key YOUR_KEY \
     --image_path /path/to/img.png \
     --work_root ./results \
     --user_message "元素: Al,Sb，剂量 30k"
 
   # 交互式
-  python materials_ds_agent.py --api_key YOUR_KEY
+  python agent_based.py --api_key YOUR_KEY
   User> /run /path/to/img.png ./results 元素: Al,Sb
 
 退出 interactive 模式输入 exit/quit。
