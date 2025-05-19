@@ -230,7 +230,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Materials-AI-Agent — 一次性或交互式执行 STEM 流水线"
     )
-    parser.add_argument("--api_key",     default='sk-02b411baf0bf47a4a5f5c16843dfa7b5')
+    parser.add_argument("--api_key",     default=None)
     parser.add_argument("--api_base",    default="https://api.deepseek.com")
     parser.add_argument("--model_name",  default=_MODEL_NAME)
     parser.add_argument("--weight_path", default=_PIPELINE_DEFAULTS["weight_path"])
