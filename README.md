@@ -31,6 +31,45 @@ conda activate img2struc
 # 2) (Optional) Install with requirements.txt
 pip install -r requirement.txt
 ```
+## 🔧 Training the MOE‑DIVAESR Model
+
+You can either **reuse the official STEM2Mat‑Bench** on Hugging Face  
+(<https://huggingface.co/datasets/yaotianvector/STEM2Mat>) or prepare your own
+dataset following the folder convention below.
+
+```text
+dataset/
+└─ SRDATA/                 # root
+   ├─ training/
+   │   ├─ LR_original/     # low‑resolution STEM tiles
+   │   └─ HR/              # matching high‑resolution (ground truth)
+   ├─ validation/
+   │   ├─ LR_original/
+   │   └─ HR/
+   └─ test/
+       ├─ LR_original/
+       └─ HR/
+
+1. **Download / create** the images and place them in the corresponding
+   `LR_original` and `HR` sub‑folders.
+
+2. **Adjust config** in `configs/moe_model.yaml` (patch size, batch size,
+   learning rate, etc.).
+
+3. **Launch training**
+
+   ```bash
+   # from project root
+   python src/ensemble_model_train.py \
+          --config configs/moe_model.yaml \
+          --data_root dataset/SRDATA
+   ```
+
+4. The script will save the best **MOE‑DIVAESR weights** under
+   `runs/<timestamp>/checkpoints/`.  Point the agent to this checkpoint to
+   enable custom denoising
+---
+
 ## 🚀 Usage Example
 
 AutoMat ships with an **agent‑based entry script** that lets you reconstruct a
