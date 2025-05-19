@@ -29,7 +29,51 @@ conda env create -f img2struc.yaml
 conda activate img2struc
 
 # 2) (Optional) Install with requirements.txt
-pip install -r requirements.txt
+pip install -r requirement.txt
+```
+## 🚀 Usage Example
+
+AutoMat ships with an **agent‑based entry script** that lets you reconstruct a
+crystal from a STEM micrograph and predict its properties in a single command
+—or interactively via chat.
+
+```text
+agent_based.py
+└─ Improved Materials‑AI Agent
+   ├─ Mode 1: one‑shot pipeline
+   └─ Mode 2: interactive chat
+
+### 1 · One‑shot pipeline
+
+```bash
+python agent_based.py \
+  --api_key YOUR_OPENAI_KEY \
+  --image_path /path/to/img.png \
+  --work_root ./results \
+  --user_message "Elements: Al, Sb; dose = 30k"
+```
+
+### 2 · Interactive chat
+
+```bash
+python agent_based.py --api_key YOUR_OPENAI_KEY
+
+User> /run /path/to/img.png ./results Elements: Al, Sb
+User> exit      # or quit
+```
+
+### Output folders
+
+| Folder          | Contents                                                                 |
+| --------------- | ------------------------------------------------------------------------ |
+| `01_recon/`     | Denoised / super‑resolved STEM image                                     |
+| `02_label/`     | Best‑matched structure template                                          |
+| `03_recon_cif/` | Reconstructed primitive unit cell (`*.cif`)                              |
+| `04_relaxed/`   | MatterSim‑relaxed structure + predicted properties (`energy.json`, etc.) |
+
+All intermediate and final results are stored under `--work_root`.
+
+```
 ```
 
 
