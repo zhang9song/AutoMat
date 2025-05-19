@@ -66,7 +66,7 @@ dataset/
    ```
 
 4. The script will save the best **MOE‑DIVAESR weights** under
-   `runs/<timestamp>/checkpoints/`.  Point the agent to this checkpoint to
+   `runs/models/`.  Point the agent to this checkpoint to
    enable custom denoising
 ---
 
