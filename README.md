@@ -73,7 +73,4 @@ User> exit      # or quit
 
 All intermediate and final results are stored under `--work_root`.
 
-```
-```
-
 
