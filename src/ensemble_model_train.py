@@ -73,4 +73,4 @@ if __name__ == '__main__':
     print(f"======= Training {config['model_params']['name']} =======")
     runner.fit(experiment, datamodule=data)
     shutil.copy(args.filename, tb_logger.log_dir)
-    shutil.copy('/home/aiprogram/project/yaotian/phase_structure_reconstruction/preprocess_model/configs/option.py', tb_logger.log_dir)
+    shutil.copy('preprocess_model/configs/option.py', tb_logger.log_dir)
