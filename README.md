@@ -69,7 +69,7 @@ User> exit      # or quit
 | `01_recon/`     | Denoised / super‑resolved STEM image                                     |
 | `02_label/`     | Best‑matched structure template                                          |
 | `03_recon_cif/` | Reconstructed primitive unit cell (`*.cif`)                              |
-| `04_relaxed/`   | MatterSim‑relaxed structure + predicted properties (`energy.json`, etc.) |
+| `04_relaxed/`   | MatterSim‑relaxed structure + predicted properties (LLM-agent output, etc.) |
 
 All intermediate and final results are stored under `--work_root`.
 
