@@ -105,4 +105,4 @@ if __name__ == '__main__':
         runner.fit(experiment, datamodule=data)
         # 保存模型和日志文件
         shutil.copy(config_save_path, tb_logger.log_dir)
-        shutil.copy('/data/data_zqh/TSJ_project/DIVSR_version_0311/preprocess_model/configs/option.py', tb_logger.log_dir)
+        shutil.copy('preprocess_model/configs/option.py', tb_logger.log_dir)
