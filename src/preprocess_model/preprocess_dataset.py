@@ -118,43 +118,6 @@ class DIVAESRDataset(data.Dataset):
         # Convert the binary image array back to an image
         binary_img = Image.fromarray(binary * 255)  # Scale values back to 255 for visual clarity (0 or 255)
         return binary_img
-    
-    def build_cat_label(self,
-                    img: np.ndarray,
-                    thresh: int = 50,
-                    alpha: float = 0.3) -> np.ndarray:
-        """
-        根据灰度自适应生成 category‑aware 权重图 (HR 尺寸)，返回 0‑255 (uint8)。
-        
-        规则
-        -------
-        • 背景 (I ≤ thresh)          → 0
-        • 前景最亮 (重元素)          → α*255             ≈ 76     (若 α=0.3)
-        • 前景最暗 (轻元素)          → 255
-        • 其余前景像素线性插值      → (α + (1-α)*(1-norm))*255
-        (norm = (I - I_min)/(I_max - I_min))
-        """
-        # ---------- 1) 前景掩膜 ----------
-        mask_fg = img > thresh
-        if mask_fg.sum() == 0:
-            return np.zeros_like(img, dtype=np.uint8)
-        
-        # ---------- 2) 灰度统计 ----------
-        fg_pixels = img[mask_fg].astype(np.float32)
-        I_min, I_max = fg_pixels.min(), fg_pixels.max()
-        denom = max(I_max - I_min, 1.0)        # 避免除 0
-        
-        # ---------- 3) 权重计算 ----------
-        weight = np.zeros_like(img, dtype=np.float32)
-        norm = (img.astype(np.float32) - I_min) / denom       # 0(暗)~1(亮)
-        weight_fg = alpha + (1 - alpha) * (1 - norm)          # 0.3~1.0
-        weight[mask_fg] = weight_fg[mask_fg]
-        
-        # ---------- 4) 转为 0‑255 uint8 ----------
-        weight_uint8 = (weight * 255).round().astype(np.uint8)
-        
-        return weight_uint8
-
 
     def __getitem__(self, idx):
         lr, hr, filename = self._load_file(idx)
@@ -162,8 +125,8 @@ class DIVAESRDataset(data.Dataset):
         if os.path.exists(cat_filename):
             hr_cat_label = imageio.imread(cat_filename, pilmode="L")
         else:
-            # hr_cat_label = self.gray_to_binary(hr)
-            hr_cat_label = self.build_cat_label(hr)
+            hr_cat_label = self.gray_to_binary(hr)
+            # hr_cat_label = self.build_cat_label(hr)
 
         lr, hr, hr_cat_label = np.expand_dims(lr, axis=2), np.expand_dims(hr, axis=2), np.expand_dims(hr_cat_label, axis=2)
         pair = [lr, hr, hr_cat_label]
