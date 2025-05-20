@@ -74,7 +74,7 @@ dataset/
 
 AutoMat ships with an **agent‑based entry script** that lets you reconstruct a
 crystal from a STEM micrograph and predict its properties in a single command
-—or interactively via chat.
+—or interactively via chat. More version agent will be released soon，
 
 ```text
 agent_based.py
