@@ -364,7 +364,7 @@ if __name__ == "__main__":
         {
             "name": "qwen2.5-vl-7b-instruct",  # 修改为实际使用的模型
             "platform": "dashscope",
-            "api_key": "${sk-84ef7b16946e41baa82ba089e7cef715}",  # 环境变量名
+            "api_key": None
         },
         # {
         #     "name": "gpt-4o",
