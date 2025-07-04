@@ -3,7 +3,6 @@
 
 #prepare:1.pip install openai>=1.3.0 dashscope zhipuai pandas； pip install tqdm
 #2.export OPENAI_API_KEY=sk-...
-#export DASHSCOPE_API_KEY=sk-84ef7b16946e41baa82ba089e7cef715
 #export ZHIPU_API_KEY=zhi-...
 
 import os
