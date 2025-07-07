@@ -74,7 +74,7 @@ dataset/
 
 AutoMat ships with an **agent‑based entry script** that lets you reconstruct a
 crystal from a STEM micrograph and predict its properties in a single command
-—or interactively via chat. More version agent will be released soon，
+—or interactively via chat. 
 
 ```text
 agent_based.py
@@ -99,6 +99,21 @@ python agent_based.py --api_key YOUR_OPENAI_KEY
 
 User> /run /path/to/img.png ./results Elements: Al, Sb
 User> exit      # or quit
+```
+
+### 3 · Qwen-VL agent example（Recommend）
+
+`src/agent_qwen_vl.py` offers a small chat agent that talks to a
+Qwen‑VL service via OpenAI style function calling.  Each pipeline step
+(`patch_infer`, `template_match`, `cif_from_label` and `relax_cif`) is
+exposed as a tool and usage statistics are printed when you exit.
+
+Specify the service endpoint and model name as below:
+
+```bash
+python src/agent_qwenvl.py \
+  --api_key YOUR_TOKEN \
+  --model qwen-plus-2025-04-28
 ```
 
 ### Output folders

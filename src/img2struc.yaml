@@ -1,4 +1,4 @@
-name: img2struc
+name: img2struc_agent
 channels:
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
@@ -28,6 +28,7 @@ dependencies:
   - xz=5.6.4=h5eee18b_1
   - zlib=1.2.13=h5eee18b_1
   - pip:
+      - accelerate==1.8.1
       - aiohappyeyeballs==2.6.1
       - aiohttp==3.11.16
       - aioitertools==0.12.0
@@ -36,9 +37,11 @@ dependencies:
       - anyio==4.9.0
       - apng==0.3.4
       - ase==3.25.0
+      - asttokens==3.0.0
       - async-timeout==5.0.1
       - atomate2==0.0.14
       - attrs==25.3.0
+      - av==15.0.0
       - azure-core==1.33.0
       - azure-identity==1.21.0
       - azure-storage-blob==12.25.1
@@ -49,9 +52,12 @@ dependencies:
       - cffi==1.17.1
       - charset-normalizer==3.4.1
       - click==8.1.8
+      - colorama==0.4.6
       - cryptography==44.0.2
       - custodian==2024.6.24
       - cycler==0.12.1
+      - dashscope==1.23.7
+      - decord==0.6.0
       - deprecated==1.2.18
       - distro==1.9.0
       - dnspython==2.7.0
@@ -61,6 +67,7 @@ dependencies:
       - emmet-core==0.83.9
       - eval-type-backport==0.2.2
       - exceptiongroup==1.2.2
+      - executing==2.2.0
       - filelock==3.18.0
       - fonttools==4.57.0
       - frozenlist==1.5.0
@@ -69,8 +76,11 @@ dependencies:
       - gitpython==3.1.44
       - h11==0.14.0
       - h5py==3.13.0
+      - hf-xet==1.1.5
       - httpcore==1.0.8
       - httpx==0.28.1
+      - huggingface-hub==0.33.2
+      - icecream==2.1.5
       - idna==3.10
       - imageio==2.27.0
       - importlib-resources==6.5.2
@@ -80,6 +90,7 @@ dependencies:
       - jmespath==1.0.1
       - jobflow==0.1.19
       - joblib==1.4.2
+      - json5==0.12.0
       - jsonlines==4.0.0
       - jsonschema==4.23.0
       - jsonschema-specifications==2024.10.1
@@ -138,6 +149,7 @@ dependencies:
       - pydantic-settings==2.8.1
       - pydash==8.0.5
       - pygame==2.6.1
+      - pygments==2.19.2
       - pyjwt==2.10.1
       - pymatgen==2024.4.13
       - pymongo==4.10.1
@@ -153,12 +165,16 @@ dependencies:
       - pywavelets==1.6.0
       - pyyaml==6.0.2
       - pyzmq==26.4.0
+      - qwen-agent==0.0.27
+      - qwen-vl-utils==0.0.11
       - referencing==0.36.2
+      - regex==2024.11.6
       - requests==2.32.3
       - rpds-py==0.24.0
       - ruamel-yaml==0.18.10
       - ruamel-yaml-clib==0.2.12
       - s3transfer==0.11.4
+      - safetensors==0.5.3
       - scikit-image==0.19.3
       - scikit-learn==1.0.2
       - scipy==1.10.1
@@ -178,15 +194,18 @@ dependencies:
       - tensorboardx==2.6.2.2
       - threadpoolctl==3.6.0
       - tifffile==2024.8.30
-      - torch==2.4.1+cu121
+      - tiktoken==0.9.0
+      - tokenizers==0.21.2
+      - torch==2.4.1
       - torch-ema==0.3
       - torch-geometric==2.6.1
       - torch-runstats==0.2.0
-      - torchaudio==2.4.1+cu121
+      - torchaudio==2.4.1+cu124
       - torchmetrics==1.7.1
       - torchsummary==1.5.1
-      - torchvision==0.19.1+cu121
+      - torchvision==0.19.1+cu124
       - tqdm==4.61.2
+      - transformers==4.51.3
       - triton==3.0.0
       - typing-extensions==4.13.2
       - typing-inspection==0.4.0
@@ -194,7 +213,8 @@ dependencies:
       - uncertainties==3.2.2
       - urllib3==1.26.20
       - wandb==0.19.9
+      - websocket-client==1.8.0
       - wrapt==1.17.2
       - yarl==1.20.0
       - zipp==3.21.0
-prefix: /home/aiprogram/anaconda3/envs/img2struc
+prefix: /home/aiprogram/anaconda3/envs/img2struc_agent
