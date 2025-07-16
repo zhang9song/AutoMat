@@ -12,7 +12,6 @@ from preprocess_model.preprocess_experiment import Prexpriment
 
 # SR model
 from preprocess_model.configs.option import args
-import SR_model.utility as utility
 
 # pytorch_lightning
 from pytorch_lightning import Trainer
