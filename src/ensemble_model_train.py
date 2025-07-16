@@ -49,11 +49,11 @@ if __name__ == '__main__':
     print(f"Total Parameters: {total_params}")
     experiment = Prexpriment(preprocess_model, config['exp_params'])
 
-    # todo: define dataset and dataloader
+    # define dataset and dataloader
     data = DIVAESRDataLoader(**config["data_params"], pin_memory=len(config['trainer_params']['gpus']) != 0)
     data.setup()
 
-    # todo: define trainval one epoch
+    # define trainval one epoch
     runner = Trainer(logger=tb_logger,
                      callbacks=[
                          LearningRateMonitor(),

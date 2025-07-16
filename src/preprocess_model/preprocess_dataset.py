@@ -119,7 +119,7 @@ class DIVAESRDataset(data.Dataset):
         binary_img = Image.fromarray(binary * 255)  # Scale values back to 255 for visual clarity (0 or 255)
         return binary_img
 
-        def build_cat_label(self,
+    def build_cat_label(self,
                     img: np.ndarray,
                     thresh: int = 50,
                     alpha: float = 0.3) -> np.ndarray:
